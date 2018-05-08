@@ -26,46 +26,46 @@
  * Revision History:
  *     Initial: 2018/3/10     Wbofeng
  */
-import Vue from 'vue';
-import Vuex from 'vuex';
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-import iView from 'iview';
-import 'iview/dist/styles/iview.css';
-import VueResource from 'vue-resource';
-import createPersistedState from 'vuex-persistedstate';
-import VueLazyload from 'vue-lazyload';
-import mavonEditor from 'mavon-editor';
-import 'mavon-editor/dist/css/index.css';
+import Vue from 'vue'
+import Vuex from 'vuex'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+import iView from 'iview'
+import 'iview/dist/styles/iview.css'
+import VueResource from 'vue-resource'
+import createPersistedState from 'vuex-persistedstate'
+import VueLazyload from 'vue-lazyload'
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 
-import App from './App';
-import router from './router';
+import App from './App'
+import router from './router'
 
-Vue.use(ElementUI);
-Vue.use(iView);
-Vue.use(Vuex);
-Vue.use(VueResource);
-Vue.use(mavonEditor);
+Vue.use(ElementUI)
+Vue.use(iView)
+Vue.use(Vuex)
+Vue.use(VueResource)
+Vue.use(mavonEditor)
 Vue.use(VueLazyload, {
-  attempt: 1,
-});
-Vue.config.productionTip = false;
+  attempt: 1
+})
+Vue.config.productionTip = false
 
 const store = new Vuex.Store({
   state: {
     item: {},
-    page: 0,
+    page: 0
   },
   plugins: [createPersistedState()],
   mutations: {
     modifyblog: (state, blog) => {
-      state.item = blog;
+      state.item = blog
     },
     modifypage: (state, page) => {
-      state.page = page;
-    },
-  },
-});
+      state.page = page
+    }
+  }
+})
 
 /* eslint-disable no-new */
 new Vue({
@@ -73,5 +73,5 @@ new Vue({
   router,
   store,
   components: { App },
-  template: '<App/>',
-});
+  template: '<App/>'
+})

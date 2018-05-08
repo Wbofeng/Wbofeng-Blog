@@ -112,15 +112,15 @@
 export default {
   watch: {
     srcoll: window.addEventListener('scroll', () => {
-      const header = document.getElementById('header');
-      header.style.boxShadow = '0 0 16px 0 #e7e7e7';
-      header.style.borderBottom = 'none';
-      const t = document.documentElement.scrollTop || document.body.scrollTop;
+      const header = document.getElementById('header')
+      header.style.boxShadow = '0 0 16px 0 #e7e7e7'
+      header.style.borderBottom = 'none'
+      const t = document.documentElement.scrollTop || document.body.scrollTop
       if (t <= 0) {
-        header.style.boxShadow = 'none';
-        header.style.borderBottom = '1px solid #e7e7e7';
+        header.style.boxShadow = 'none'
+        header.style.borderBottom = '1px solid #e7e7e7'
       }
-    }),
-  },
-};
+    })
+  }
+}
 </script>

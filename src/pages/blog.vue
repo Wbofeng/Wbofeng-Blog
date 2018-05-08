@@ -93,31 +93,31 @@
 }
 </style>
 <script>
-import loading from '../components/loading';
+import loading from '../components/loading'
 
 export default {
   components: {
-    loading,
+    loading
   },
-  data() {
+  data () {
     return {
       blog: {},
-      show: true,
-    };
+      show: true
+    }
   },
-  created() {
+  created () {
     const blogid = {
-      id: this.$store.state.item.Id,
-    };
+      id: this.$store.state.item.Id
+    }
     this.$http.post('http://192.168.0.111:21001/blog/article/getbyid', blogid).then((response) => {
-      this.blog = response.body.data;
-      this.show = false;
-      this.blog.Created = this.blog.Created.slice(0, 10);
+      this.blog = response.body.data
+      this.show = false
+      this.blog.Created = this.blog.Created.slice(0, 10)
     }, () => {
       this.$Notice.error({
-        title: '内容获取失败',
-      });
-    });
-  },
-};
+        title: '内容获取失败'
+      })
+    })
+  }
+}
 </script>

@@ -63,12 +63,12 @@
       </el-col>
       <el-col :span="4" class="col" :push="4">
         <img src="../assets/user.png" class="user-img">
-        <span class="user-name"><strong>技术猫</strong></span>
-        <span class="user-note">极具实力，打造互联网开发精英人才</span>
+        <span class="user-name"><strong>王博锋</strong></span>
+        <span class="user-note">怕什么真理无穷，进一步有进一步的欢喜</span>
         <div class="icon-container">
           <el-row>
             <el-col :span="8" :push="4">
-              <div @click="to('https://github.com/TechCatsLab')">
+              <div @click="to('https://github.com/Wbofeng')">
                 <Icon type="social-github" class="icon"></Icon>
               </div>
               </el-col>
@@ -85,11 +85,6 @@
             <span class="tags-container">Vue</span>
             <span class="tags-container">React</span>
           </div>
-        </div>
-        <div class="friend">
-          <p class="title"><strong>Friend</strong></p>
-          <span class="friend-container" @click="to('https://bootcamp.smartestee.com/#/')">技术猫培训</span>
-          <span class="friend-container" @click="to('https://www.smartestee.com')">极智人官网</span>
         </div>
       </el-col>
     </el-row>
@@ -262,100 +257,84 @@
   border: solid 1px #333;
 }
 
-.friend {
-  margin-bottom: 2vw;
-}
-
-.friend-container {
-  font-size: 0.9vw;
-  color: #666;
-  margin-left: 0.5vw;
-  user-select: none;
-  transition-duration: 0.4s;
-}
-
-.friend-container:hover {
-  color: steelblue;
-}
-
 .col {
   margin-left: 2vw;
 }
 </style>
 <script>
-import loading from '../components/loading';
+import loading from '../components/loading'
 
 export default {
-  data() {
+  data () {
     return {
       blogs: [],
       loading: true,
-      getmore: false,
-    };
+      getmore: false
+    }
   },
   components: {
-    loading,
+    loading
   },
-  mounted() {
+  mounted () {
     this.$http.post('http://192.168.0.111:21001/blog/article/approval', { page: 0 }).then((response) => {
-      this.blogs = this.blogs.concat(response.body.data);
-      this.loading = false;
+      this.blogs = this.blogs.concat(response.body.data)
+      this.loading = false
       if (this.$store.state.page > 0) {
-        this.$store.commit('modifypage', 1);
+        this.$store.commit('modifypage', 1)
       } else {
-        this.$store.commit('modifypage', this.$store.state.page + 1);
+        this.$store.commit('modifypage', this.$store.state.page + 1)
       }
-      this.cutdate(this.blogs);
+      this.cutdate(this.blogs)
       this.blogs.forEach((blog) => {
         if (blog.img !== '') {
-          blog.mainwidth = '66.7%'; // eslint-disable-line no-param-reassign
-          blog.imgwidth = '33.3%'; // eslint-disable-line no-param-reassign
+          blog.mainwidth = '66.7%' // eslint-disable-line no-param-reassign
+          blog.imgwidth = '33.3%' // eslint-disable-line no-param-reassign
         } else {
-          blog.mainwidth = '100%'; // eslint-disable-line no-param-reassign
-          blog.imgwidth = '0'; // eslint-disable-line no-param-reassign
+          blog.mainwidth = '100%' // eslint-disable-line no-param-reassign
+          blog.imgwidth = '0' // eslint-disable-line no-param-reassign
         }
-      });
+      })
     }, () => {
       this.$Notice.error({
-        title: 'HOME 内容获取失败',
-      });
-    });
+        title: 'HOME 内容获取失败'
+      })
+    })
   },
   methods: {
-    move(item) {
-      this.$store.commit('modifyblog', item);
-      this.$router.push({ path: '/blog/' + item.Id }); // eslint-disable-line prefer-template
+    move (item) {
+      this.$store.commit('modifyblog', item)
+      this.$router.push({ path: '/blog/' + item.Id }) // eslint-disable-line prefer-template
     },
-    to(link) {
-      window.location.href = link;
+    to (link) {
+      window.location.href = link
     },
-    cutdate(array) {
+    cutdate (array) {
       for (let i = 0; i < array.length; i += 1) {
-        array[i].Created = array[i].Created.slice(0, 10); // eslint-disable-line no-param-reassign
+        array[i].Created = array[i].Created.slice(0, 10) // eslint-disable-line no-param-reassign
       }
     },
-    getmoreblog() {
-      this.getmore = true;
+    getmoreblog () {
+      this.getmore = true
       this.$http.post('http://192.168.0.111:21001/blog/article/approval', { page: this.$store.state.page }).then((response) => {
-        this.blogs = this.blogs.concat(response.body.data);
-        this.cutdate(this.blogs);
+        this.blogs = this.blogs.concat(response.body.data)
+        this.cutdate(this.blogs)
         this.blogs.forEach((blog) => {
           if (blog.img !== '') {
-            blog.mainwidth = '66.7%'; // eslint-disable-line no-param-reassign
-            blog.imgwidth = '33.3%'; // eslint-disable-line no-param-reassign
+            blog.mainwidth = '66.7%' // eslint-disable-line no-param-reassign
+            blog.imgwidth = '33.3%' // eslint-disable-line no-param-reassign
           } else {
-            blog.mainwidth = '100%'; // eslint-disable-line no-param-reassign
-            blog.imgwidth = '0'; // eslint-disable-line no-param-reassign
+            blog.mainwidth = '100%' // eslint-disable-line no-param-reassign
+            blog.imgwidth = '0' // eslint-disable-line no-param-reassign
           }
-        });
-        this.getmore = false;
-        this.$store.commit('modifypage', this.$store.state.page + 1);
+        })
+        this.getmore = false
+        this.$store.commit('modifypage', this.$store.state.page + 1)
       }, () => {
         this.$Notice.error({
-          title: '内容获取失败',
-        });
-      });
-    },
-  },
-};
+          title: '内容获取失败'
+        })
+      })
+    }
+  }
+}
 </script>

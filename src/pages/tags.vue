@@ -141,74 +141,74 @@
 }
 </style>
 <script>
-import loading from '../components/loading';
+import loading from '../components/loading'
 
 export default {
-  data() {
+  data () {
     return {
       id: 'title',
       tags: [],
       show: [],
-      loading: true,
-    };
+      loading: true
+    }
   },
   components: {
-    loading,
+    loading
   },
-  mounted() {
+  mounted () {
     this.$http.get('http://192.168.0.111:21001/blog/tag/activelist').then((response) => {
-      this.tags = response.body.ID;
-      this.loading = false;
+      this.tags = response.body.ID
+      this.loading = false
       for (let n = 0; n < this.tags.length; n += 1) {
         if (this.tags[n].Count < 10) {
-          this.tags[n].color = '#81a3cd';
+          this.tags[n].color = '#81a3cd'
         } else if (this.tags[n].Count >= 10 && this.tags[n].Count < 30) {
-          this.tags[n].color = '#b7adcf';
+          this.tags[n].color = '#b7adcf'
         } else if (this.tags[n].Count >= 30) {
-          this.tags[n].color = '#b5738d';
+          this.tags[n].color = '#b5738d'
         }
       }
     }, () => {
       this.$Notice.error({
-        title: 'TAGS 内容获取失败',
-      });
-    });
+        title: 'TAGS 内容获取失败'
+      })
+    })
   },
   methods: {
-    push(item) {
+    push (item) {
       const id = {
-        id: item.TagID,
-      };
-      const article = {};
+        id: item.TagID
+      }
+      const article = {}
       this.$http.post('http://192.168.0.111:21001/blog/article/getbytag', id).then((response) => {
         if (this.show.length === 0) {
-          article.tag = item.Tag;
-          article.detail = response.body.data;
-          this.show.unshift(article);
+          article.tag = item.Tag
+          article.detail = response.body.data
+          this.show.unshift(article)
         } else {
           for (let i = 0; i <= this.show.length; i += 1) {
             if (i < this.show.length) {
               if (this.show[i].tag === item.tag) {
-                this.show.splice(i, 1);
-                article.tag = item.Tag;
-                article.detail = response.body.data;
-                this.show.unshift(article);
-                break;
+                this.show.splice(i, 1)
+                article.tag = item.Tag
+                article.detail = response.body.data
+                this.show.unshift(article)
+                break
               }
             } else {
-              article.tag = item.Tag;
-              article.detail = response.body.data;
-              this.show.unshift(article);
-              break;
+              article.tag = item.Tag
+              article.detail = response.body.data
+              this.show.unshift(article)
+              break
             }
           }
         }
-      });
+      })
     },
-    move(item) {
-      this.$store.commit('modifyblog', item);
-      this.$router.push('/blog/' + item.Id); // eslint-disable-line prefer-template
-    },
-  },
-};
+    move (item) {
+      this.$store.commit('modifyblog', item)
+      this.$router.push('/blog/' + item.Id) // eslint-disable-line prefer-template
+    }
+  }
+}
 </script>

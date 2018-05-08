@@ -26,15 +26,16 @@
  * Revision History:
  *     Initial: 2018/3/10     Wbofeng
  */
-import Vue from 'vue';
-import Router from 'vue-router';
-import Main from '@/components/main';
-import Home from '@/pages/home';
-import Works from '@/pages/works';
-import Tags from '@/pages/tags';
-import Blog from '@/pages/blog';
+import Vue from 'vue'
+import Router from 'vue-router'
 
-Vue.use(Router);
+import Main from '@/components/main'
+import Home from '@/pages/home'
+import Works from '@/pages/works'
+import Tags from '@/pages/tags'
+import Blog from '@/pages/blog'
+
+Vue.use(Router)
 
 export default new Router({
   routes: [
@@ -46,27 +47,27 @@ export default new Router({
         {
           path: '/home',
           name: 'home',
-          component: Home,
+          component: Home
         },
         {
-          path: '/', redirect: '/home',
+          path: '/', redirect: '/home'
         },
         {
           path: '/works/',
           name: 'works',
-          component: Works,
+          component: Works
         },
         {
           path: '/tags',
           name: 'tags',
-          component: Tags,
+          component: Tags
         },
         {
           path: '/blog/:id',
           name: 'blog',
-          component: Blog,
-        },
-      ],
-    },
-  ],
-});
+          component: Blog
+        }
+      ]
+    }
+  ]
+})

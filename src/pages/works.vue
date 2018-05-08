@@ -154,48 +154,48 @@
 }
 </style>
 <script>
-import loading from '../components/loading';
+import loading from '../components/loading'
 
 export default {
-  data() {
+  data () {
     return {
       works: [],
-      loading: true,
-    };
+      loading: true
+    }
   },
   components: {
-    loading,
+    loading
   },
-  mounted() {
+  mounted () {
     this.$http({
       url: 'http://192.168.0.111:21001/blog/project/list',
       method: 'GET',
-      timeout: 10000,
+      timeout: 10000
     }).then((response) => {
-      this.works = response.body.data;
-      this.loading = false;
+      this.works = response.body.data
+      this.loading = false
       for (let i = 0; i < this.works.length; i += 1) {
-        this.works[i].Created = this.works[i].Created.slice(0, 10);
+        this.works[i].Created = this.works[i].Created.slice(0, 10)
       }
     }, () => {
       this.$Notice.error({
-        title: 'WORKS 内容获取失败',
-      });
-    });
+        title: 'WORKS 内容获取失败'
+      })
+    })
   },
   methods: {
-    move(link) {
-      window.location.href = link;
+    move (link) {
+      window.location.href = link
     },
-    beforeEnter(el) {
-      el.style.opacity = 0; // eslint-disable-line no-param-reassign
+    beforeEnter (el) {
+      el.style.opacity = 0 // eslint-disable-line no-param-reassign
     },
-    enter(el) {
-      const delay = el.dataset.index * 150;
+    enter (el) {
+      const delay = el.dataset.index * 150
       setTimeout(() => {
-        el.style.opacity = 1; // eslint-disable-line no-param-reassign
-      }, delay);
-    },
-  },
-};
+        el.style.opacity = 1 // eslint-disable-line no-param-reassign
+      }, delay)
+    }
+  }
+}
 </script>
