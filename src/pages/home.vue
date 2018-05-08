@@ -62,7 +62,7 @@
         </div>
       </el-col>
       <el-col :span="4" class="col" :push="4">
-        <img src="../assets/user.png" class="user-img">
+        <img src="../assets/user.jpg" class="user-img">
         <span class="user-name"><strong>王博锋</strong></span>
         <span class="user-note">怕什么真理无穷，进一步有进一步的欢喜</span>
         <div class="icon-container">
@@ -190,8 +190,9 @@
 }
 
 .user-img {
-  width: 100%;
-  margin-top: 1vw;
+  width: 70%;
+  margin-top: 3vw;
+  border-radius: 50%;
 }
 
 .user-name {
