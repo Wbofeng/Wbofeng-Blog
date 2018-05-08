@@ -1,0 +1,361 @@
+/*
+ * MIT License
+ *
+ * Copyright (c) 2017 SmartestEE Co., Ltd..
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the 'Software'), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+/*
+ * Revision History:
+ *     Initial: 2018/3/10     Wbofeng
+ */
+<template>
+  <div class="main">
+    <el-row>
+      <el-col :span="12" :push="4">
+        <img src="../assets/home.png" class="home-img" @click="move()">
+        <div>
+          <loading v-if="this.loading" class="loading"></loading>
+          <el-row v-for="(blog, index) in blogs" :key="index" class="blog">
+            <div @click="move(blog)" class="blog-div">
+              <el-col :span="16" :style="{ width: blog.mainwidth }">
+                <p class="blog-title">{{blog.Title}}</p>
+                <p class="blog-detail">
+                  <span>visitors {{blog.Views}}<strong> · </strong></span>
+                  <span v-if="blog.Tags"
+                        v-for="(tag, index) in blog.Tags"
+                        :key="index">{{tag}}
+                  </span>
+                  <span v-if="blog.Tags"><strong> · </strong></span>
+                  <span>{{blog.Created}}</span>
+                </p>
+                <span class="blog-container">{{blog.Content}}</span>
+              </el-col>
+              <el-col :span="8" :style="{ width: blog.imgwidth }">
+                <div class="blog-img">
+                  <img :src="blog.Image" class="blog-img-detail">
+                </div>
+              </el-col>
+            </div>
+          </el-row>
+          <el-button class="getmore" @click="getmoreblog()" v-if="this.loading === false">
+            <loading class="loading-button" v-if="this.getmore === true"></loading>
+            <span v-if="this.getmore === false">加载更多</span>
+          </el-button>
+        </div>
+      </el-col>
+      <el-col :span="4" class="col" :push="4">
+        <img src="../assets/user.png" class="user-img">
+        <span class="user-name"><strong>技术猫</strong></span>
+        <span class="user-note">极具实力，打造互联网开发精英人才</span>
+        <div class="icon-container">
+          <el-row>
+            <el-col :span="8" :push="4">
+              <div @click="to('https://github.com/TechCatsLab')">
+                <Icon type="social-github" class="icon"></Icon>
+              </div>
+              </el-col>
+            <el-col :span="8" :push="4">
+              <Icon type="social-twitter" class="icon"></Icon>
+              </el-col>
+          </el-row>
+        </div>
+        <div class="hot-tags">
+          <p class="title"><strong>Tags</strong></p>
+          <div class="tags">
+            <span class="tags-container">Go</span>
+            <span class="tags-container">JavaScript</span>
+            <span class="tags-container">Vue</span>
+            <span class="tags-container">React</span>
+          </div>
+        </div>
+        <div class="friend">
+          <p class="title"><strong>Friend</strong></p>
+          <span class="friend-container" @click="to('https://bootcamp.smartestee.com/#/')">技术猫培训</span>
+          <span class="friend-container" @click="to('https://www.smartestee.com')">极智人官网</span>
+        </div>
+      </el-col>
+    </el-row>
+  </div>
+</template>
+<style scoped>
+.main {
+  margin-top: 14vh;
+  z-index: 1;
+}
+
+.home-img {
+  width: 100%;
+  height: 18vw;
+  background-color: #ccc;
+  transition-duration: 0.6s;
+}
+
+.home-img:hover {
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+}
+
+.blog {
+  padding-top: 1vw;
+  padding-bottom: 1vw;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  width: 100%;
+  transition-duration: 0.6s;
+}
+
+.blog-div {
+  height: 10vw;
+}
+
+.blog:hover {
+  border-bottom: 1px #999 solid;
+}
+
+.blog:hover .blog-title {
+  color: steelblue;
+}
+
+.blog-title {
+  margin-left: 1vw;
+  font-size: 1.5vw;
+  margin-bottom: 0.5vw;
+  user-select: none;
+}
+
+.blog-detail {
+  margin-left: 1vw;
+  font-size: 0.9vw;
+  margin-bottom: 0.7vw;
+  user-select: none;
+}
+
+.blog-container {
+  display: block;
+  padding-right: 2vw;
+}
+
+.blog-img {
+  background-color: #f5f5f5;
+  height: 10vw;
+  margin-right: 1vw;
+}
+
+.blog-img-detail {
+  width: 100%;
+  height:auto;
+  max-width:100%;
+  max-height:100%;
+}
+
+.getmore {
+  width: 100%;
+  height: 10vh;
+  border: none;
+  transition-duration: 0.6s;
+  margin-bottom: 5vh;
+  font-size: 16px;
+  color: #666;
+}
+
+.getmore:hover {
+  color: steelblue;
+  background-color: #fff;
+}
+
+.getmore:focus {
+  border: none;
+  background-color: #fff !important;
+}
+
+.getmore:active {
+  border: none;
+  background-color: #fff !important;
+}
+
+.loading-button {
+  margin: 0px !important;
+}
+
+.user-img {
+  width: 100%;
+  margin-top: 1vw;
+}
+
+.user-name {
+  display: block;
+  margin-top: 1.6vw;
+  font-size: 1.2vw;
+  color: #666;
+  user-select: none;
+}
+
+.user-note {
+  display: block;
+  margin-top: 0.5vw;
+  font-size: 0.8vw;
+  color: #999;
+  user-select: none;
+}
+
+.icon-container {
+  margin-top: 2vw;
+}
+
+.icon {
+  font-size: 2.6vw;
+  color: #999;
+  transition-duration: 0.5s;
+}
+
+.icon:hover {
+  color: #333;
+}
+
+.hot-tags {
+  margin-top: 2vw;
+  text-align: left;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  margin-bottom: 2vw;
+  user-select: none;
+}
+
+.title {
+  font-size: 1.2vw;
+  text-align: center;
+  margin-bottom: 1vw;
+  color: #666;
+  user-select: none;
+}
+
+.tags-container {
+  border: solid 1px #ccc;
+  padding: 0.3vw;
+  border-radius: 5px;
+  color: #ccc;
+  display: inline-block;
+  margin-left: 1vw;
+  margin-bottom: 1vh;
+  transition-duration: 0.5s;
+}
+
+.tags-container:hover {
+  color: #333;
+  border: solid 1px #333;
+}
+
+.friend {
+  margin-bottom: 2vw;
+}
+
+.friend-container {
+  font-size: 0.9vw;
+  color: #666;
+  margin-left: 0.5vw;
+  user-select: none;
+  transition-duration: 0.4s;
+}
+
+.friend-container:hover {
+  color: steelblue;
+}
+
+.col {
+  margin-left: 2vw;
+}
+</style>
+<script>
+import loading from '../components/loading';
+
+export default {
+  data() {
+    return {
+      blogs: [],
+      loading: true,
+      getmore: false,
+    };
+  },
+  components: {
+    loading,
+  },
+  mounted() {
+    this.$http.post('http://192.168.0.111:21001/blog/article/approval', { page: 0 }).then((response) => {
+      this.blogs = this.blogs.concat(response.body.data);
+      this.loading = false;
+      if (this.$store.state.page > 0) {
+        this.$store.commit('modifypage', 1);
+      } else {
+        this.$store.commit('modifypage', this.$store.state.page + 1);
+      }
+      this.cutdate(this.blogs);
+      this.blogs.forEach((blog) => {
+        if (blog.img !== '') {
+          blog.mainwidth = '66.7%'; // eslint-disable-line no-param-reassign
+          blog.imgwidth = '33.3%'; // eslint-disable-line no-param-reassign
+        } else {
+          blog.mainwidth = '100%'; // eslint-disable-line no-param-reassign
+          blog.imgwidth = '0'; // eslint-disable-line no-param-reassign
+        }
+      });
+    }, () => {
+      this.$Notice.error({
+        title: 'HOME 内容获取失败',
+      });
+    });
+  },
+  methods: {
+    move(item) {
+      this.$store.commit('modifyblog', item);
+      this.$router.push({ path: '/blog/' + item.Id }); // eslint-disable-line prefer-template
+    },
+    to(link) {
+      window.location.href = link;
+    },
+    cutdate(array) {
+      for (let i = 0; i < array.length; i += 1) {
+        array[i].Created = array[i].Created.slice(0, 10); // eslint-disable-line no-param-reassign
+      }
+    },
+    getmoreblog() {
+      this.getmore = true;
+      this.$http.post('http://192.168.0.111:21001/blog/article/approval', { page: this.$store.state.page }).then((response) => {
+        this.blogs = this.blogs.concat(response.body.data);
+        this.cutdate(this.blogs);
+        this.blogs.forEach((blog) => {
+          if (blog.img !== '') {
+            blog.mainwidth = '66.7%'; // eslint-disable-line no-param-reassign
+            blog.imgwidth = '33.3%'; // eslint-disable-line no-param-reassign
+          } else {
+            blog.mainwidth = '100%'; // eslint-disable-line no-param-reassign
+            blog.imgwidth = '0'; // eslint-disable-line no-param-reassign
+          }
+        });
+        this.getmore = false;
+        this.$store.commit('modifypage', this.$store.state.page + 1);
+      }, () => {
+        this.$Notice.error({
+          title: '内容获取失败',
+        });
+      });
+    },
+  },
+};
+</script>
