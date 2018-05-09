@@ -30,7 +30,7 @@
   <div class="main">
     <div class="banner">
     </div>
-    <loading v-if="this.loading"></loading>
+    <!-- <loading v-if="this.loading"></loading> -->
     <transition-group
       name="staggered-fade"
       v-on:before-enter="beforeEnter"
@@ -38,7 +38,7 @@
     >
       <div class="work" v-for="(work, index) in works" :key="index" :data-index="index">
         <div class="work-img-div">
-          <img class="work-img" src="" alt="">
+          <img class="work-img" :src="work.img">
         </div>
         <div class="work-container">
           <div class="text-div">
@@ -94,7 +94,7 @@
 
 .work-img {
   width: auto;
-  height: auto;
+  height: 100%;
   max-width:100%;
   max-height:100%;
 }
@@ -159,7 +159,16 @@ import loading from '../components/loading'
 export default {
   data () {
     return {
-      works: [],
+      works: [
+        {
+          Title: '极智人官网',
+          Detail: '使用 Vue 和 element-UI 制作的页面',
+          Author: 'Wbofeng',
+          Created: '2017-11-05',
+          img: require('../assets/smartestee.png'),
+          Link: 'https://bootcamp.smartestee.com/#/'
+        }
+      ],
       loading: true
     }
   },
@@ -167,7 +176,7 @@ export default {
     loading
   },
   mounted () {
-    this.$http({
+    /* this.$http({
       url: 'http://192.168.0.111:21001/blog/project/list',
       method: 'GET',
       timeout: 10000
@@ -181,7 +190,7 @@ export default {
       this.$Notice.error({
         title: 'WORKS 内容获取失败'
       })
-    })
+    }) */
   },
   methods: {
     move (link) {
