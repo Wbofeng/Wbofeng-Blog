@@ -67,23 +67,29 @@
         <span class="user-note">怕什么真理无穷，进一步有进一步的欢喜</span>
         <div class="icon-container">
           <el-row>
-            <el-col :span="8" :push="4">
+            <el-col :span="8">
               <div @click="to('https://github.com/Wbofeng')">
                 <Icon type="social-github" class="icon"></Icon>
               </div>
               </el-col>
-            <el-col :span="8" :push="4">
-              <Icon type="social-twitter" class="icon"></Icon>
-              </el-col>
+            <el-col :span="8">
+              <div @mouseover="active('qqactive', 0)" @mouseout="active('qqactive', 1)">
+                <img :src="this.qq" class="icon-img" id="qq">
+              </div>
+            </el-col>
+            <el-col :span="8">
+              <div @mouseover="active('wechatactive', 0)" @mouseout="active('wechatactive', 1)">
+                <img :src="this.wechat" class="icon-img" id="wechat">
+              </div>
+            </el-col>
           </el-row>
         </div>
         <div class="hot-tags">
           <p class="title"><strong>Tags</strong></p>
           <div class="tags">
-            <span class="tags-container">Go</span>
+            <span class="tags-container">Weex</span>
             <span class="tags-container">JavaScript</span>
             <span class="tags-container">Vue</span>
-            <span class="tags-container">React</span>
           </div>
         </div>
       </el-col>
@@ -218,7 +224,6 @@
 .icon {
   font-size: 2.6vw;
   color: #999;
-  transition-duration: 0.5s;
 }
 
 .icon:hover {
@@ -261,6 +266,11 @@
 .col {
   margin-left: 2vw;
 }
+
+.icon-img {
+  width: 48%;
+  transition-duration: 0.5s;
+}
 </style>
 <script>
 import loading from '../components/loading'
@@ -270,7 +280,9 @@ export default {
     return {
       blogs: [],
       loading: true,
-      getmore: false
+      getmore: false,
+      qq: require('../assets/QQ.png'),
+      wechat: require('../assets/wechat.png')
     }
   },
   components: {
@@ -308,6 +320,17 @@ export default {
     },
     to (link) {
       window.location.href = link
+    },
+    active (name, active) {
+      if (name === 'qqactive' && active === 0) {
+        this.qq = require('../assets/QQ-hover.png')
+      } else if (name === 'qqactive' && active === 1) {
+        this.qq = require('../assets/QQ.png')
+      } else if (name === 'wechatactive' && active === 1) {
+        this.wechat = require('../assets/wechat.png')
+      } else if (name === 'wechatactive' && active === 0) {
+        this.wechat = require('../assets/wechat-hover.png')
+      }
     },
     cutdate (array) {
       for (let i = 0; i < array.length; i += 1) {

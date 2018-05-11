@@ -105,7 +105,7 @@
 }
 
 .logo {
-  margin-top: 1.8vh;
+  width: 80%;
 }
 </style>
 <script>
