@@ -84,13 +84,6 @@
   padding-bottom: 2vw;
   border-bottom: 1px solid #eee;
 }
-
-.container {
-  margin-top: 1vw;
-  text-align: left;
-  width: 100%;
-  font-size: 16px;
-}
 </style>
 <script>
 import loading from '../components/loading'
