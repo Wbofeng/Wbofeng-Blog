@@ -37,6 +37,7 @@ import createPersistedState from 'vuex-persistedstate'
 import VueLazyload from 'vue-lazyload'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+import vueCanvas from 'vue-canvas-effect'
 
 import App from './App'
 import router from './router'
@@ -46,6 +47,7 @@ Vue.use(iView)
 Vue.use(Vuex)
 Vue.use(VueResource)
 Vue.use(mavonEditor)
+Vue.use(vueCanvas)
 Vue.use(VueLazyload, {
   attempt: 1
 })

@@ -96,65 +96,77 @@
     </el-row>
   </div>
 </template>
-<style scoped lang="sass">
-.main
+<style scoped>
+.main {
   margin-top: 14vh;
   z-index: 1;
+}
 
-.home-img
+.home-img {
   width: 100%;
   height: 18vw;
   background-color: #ccc;
   transition-duration: 0.6s;
+}
 
-.home-img:hover
+.home-img:hover {
   box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+}
 
-.blog
+.blog {
   padding-top: 1vw;
   padding-bottom: 1vw;
   border-bottom: 1px solid #eee;
   text-align: left;
   width: 100%;
   transition-duration: 0.6s;
+}
 
-.blog-div
+.blog-div {
   height: 10vw;
+}
 
-.blog:hover
+.blog:hover {
   border-bottom: 1px #999 solid;
+}
 
-.blog:hover .blog-title
+.blog:hover .blog-title {
   color: steelblue;
+}
 
-.blog-title
+.blog-title {
   margin-left: 1vw;
   font-size: 1.5vw;
   margin-bottom: 0.5vw;
   user-select: none;
+}
 
-.blog-detail
+.blog-detail {
   margin-left: 1vw;
   font-size: 0.9vw;
   margin-bottom: 0.7vw;
   user-select: none;
+}
 
-.blog-container
+.blog-container {
   display: block;
   padding-right: 2vw;
+}
 
-.blog-img
+.blog-img {
   background-color: #f5f5f5;
   height: 10vw;
   margin-right: 1vw;
+}
 
-.blog-img-detail
+.blog-img-detail {
   width: 100%;
   height: auto;
   max-width: 100%;
   max-height: 100%;
+}
 
-.getmore
+.getmore {
   width: 100%;
   height: 10vh;
   border: none;
@@ -162,67 +174,80 @@
   margin-bottom: 5vh;
   font-size: 16px;
   color: #666;
+}
 
-.getmore:hover
+.getmore:hover {
   color: steelblue;
   background-color: #fff;
+}
 
-.getmore:focus
+.getmore:focus {
   border: none;
   background-color: #fff !important;
+}
 
-.getmore:active
+.getmore:active {
   border: none;
   background-color: #fff !important;
+}
 
-.loading-button
+.loading-button {
   margin: 0px !important;
+}
 
-.user-img
+.user-img {
   width: 70%;
   margin-top: 3vw;
   border-radius: 50%;
+}
 
-.user-name
+.user-name {
   display: block;
   margin-top: 1.6vw;
   font-size: 1.2vw;
   color: #666;
   user-select: none;
+}
 
-.user-note
+.user-note {
   display: block;
   margin-top: 0.5vw;
   font-size: 0.8vw;
   color: #999;
   user-select: none;
+}
 
-.icon-container
+.icon-container {
   margin-top: 2vw;
+}
 
-.icon
+.icon {
   font-size: 2.6vw;
   color: #999;
+}
 
-.icon:hover
+.icon:hover {
   color: #333;
+}
 
-.hot-tags
+.hot-tags {
   margin-top: 2vw;
   text-align: left;
   padding-left: 1vw;
   padding-right: 1vw;
   margin-bottom: 2vw;
   user-select: none;
+}
 
-.title
+.title {
   font-size: 1.2vw;
   text-align: center;
   margin-bottom: 1vw;
   color: #666;
   user-select: none;
+}
 
-.tags-container
+.tags-container {
   border: solid 1px #ccc;
   padding: 0.3vw;
   border-radius: 5px;
@@ -231,17 +256,21 @@
   margin-left: 1vw;
   margin-bottom: 1vh;
   transition-duration: 0.5s;
+}
 
-.tags-container:hover
+.tags-container:hover {
   color: #333;
   border: solid 1px #333;
+}
 
-.col
+.col {
   margin-left: 2vw;
+}
 
-.icon-img
+.icon-img {
   width: 48%;
   transition-duration: 0.5s;
+}
 </style>
 <script>
 import loading from '../components/loading'
