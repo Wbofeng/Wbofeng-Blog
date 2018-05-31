@@ -91,6 +91,7 @@
             <span class="tags-container">JavaScript</span>
             <span class="tags-container">Vue</span>
             <span class="tags-container">Angular</span>
+            <span class="tags-container">egg-js</span>
           </div>
         </div>
       </el-col>
@@ -239,6 +240,12 @@
   margin-bottom: 2vw;
   user-select: none;
 }
+
+ .tags {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  align-content: flex-start;
+ }
 
 .title {
   font-size: 1.2vw;
