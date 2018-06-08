@@ -90,8 +90,7 @@
             <span class="tags-container">Weex</span>
             <span class="tags-container">JavaScript</span>
             <span class="tags-container">Vue</span>
-            <span class="tags-container">Angular</span>
-            <span class="tags-container">egg-js</span>
+            <span class="tags-container">Egg-js</span>
           </div>
         </div>
       </el-col>
