@@ -93,8 +93,8 @@
 }
 
 .work-img {
-  width: auto;
   height: 100%;
+  width: 100%;
   max-width:100%;
   max-height:100%;
 }
@@ -167,6 +167,14 @@ export default {
           Created: '2017-11-05',
           img: require('../assets/smartestee.png'),
           Link: 'https://bootcamp.smartestee.com/#/'
+        },
+        {
+          Title: '极智人管理后台',
+          Detail: '基于 Element-admin，实现了人员添加，技术新闻搜索，权限授权，密码修改等功能',
+          Author: 'Wbofeng',
+          Created: '2018-5-20',
+          img: require('../assets/s8e.png'),
+          Link: 'https://techcats.s8e.io/#/login'
         }
       ],
       loading: true
