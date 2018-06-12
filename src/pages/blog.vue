@@ -29,13 +29,8 @@
 <template>
   <div class="main">
     <div class="markdown">
-      <div class="header">
-        <p class="title"><strong>{{this.blog.Title}}</strong></p>
-        <span class="author">作者 {{this.blog.Author}}</span>
-        <span class="time">日期 {{this.blog.Created}}</span>
-      </div>
-      <loading v-show="show"></loading>
       <mavon-editor
+        class="editor"
         v-model="blog.Content"
         :ishljs = "true"
         :toolbars = "{}"
@@ -83,6 +78,10 @@
 .header {
   padding-bottom: 2vw;
   border-bottom: 1px solid #eee;
+}
+
+.editor {
+  margin-bottom: 20px;
 }
 </style>
 <script>
