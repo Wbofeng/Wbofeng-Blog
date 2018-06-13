@@ -90,7 +90,6 @@
             <span class="tags-container">Weex</span>
             <span class="tags-container">JavaScript</span>
             <span class="tags-container">Vue</span>
-            <span class="tags-container">Egg-js</span>
           </div>
         </div>
       </el-col>
@@ -243,7 +242,6 @@
  .tags {
   display: flex;
   flex-wrap: wrap-reverse;
-  align-content: flex-start;
  }
 
 .title {
