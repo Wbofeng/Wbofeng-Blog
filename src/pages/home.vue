@@ -36,21 +36,16 @@
           <el-row v-for="(blog, index) in blogs" :key="index" class="blog">
             <div @click="move(blog)" class="blog-div">
               <el-col :span="16" :style="{ width: blog.mainwidth }">
-                <p class="blog-title">{{blog.Title}}</p>
+                <p class="blog-title">{{blog.title}}</p>
                 <p class="blog-detail">
-                  <span>visitors {{blog.Views}}<strong> · </strong></span>
-                  <span v-if="blog.Tags"
-                        v-for="(tag, index) in blog.Tags"
-                        :key="index">{{tag}}
-                  </span>
-                  <span v-if="blog.Tags"><strong> · </strong></span>
-                  <span>{{blog.Created}}</span>
+                  <span>浏览次数: {{blog.count}}</span>
+                  <span>标签: {{blog.tags}}</span>
                 </p>
-                <span class="blog-container">{{blog.Content}}</span>
+                <span class="blog-container">{{blog.profile}}</span>
               </el-col>
               <el-col :span="8" :style="{ width: blog.imgwidth }">
                 <div class="blog-img">
-                  <img :src="blog.Image" class="blog-img-detail">
+                  <img :src="blog.picture" class="blog-img-detail">
                 </div>
               </el-col>
             </div>
@@ -143,14 +138,16 @@
 
 .blog-detail {
   margin-left: 1vw;
-  font-size: 0.9vw;
+  font-size: 12px;
   margin-bottom: 0.7vw;
   user-select: none;
 }
 
 .blog-container {
   display: block;
-  padding-right: 2vw;
+  margin-left: 20px;
+  margin-top: 20px;
+  font-size: 20px;
 }
 
 .blog-img {
@@ -294,17 +291,22 @@ export default {
     loading
   },
   mounted () {
-    this.$http.post('http://192.168.0.111:21001/blog/article/approval', { page: 0 }).then((response) => {
-      this.blogs = this.blogs.concat(response.body.data)
+    this.$http.get('http://127.0.0.1:7001/home').then((response) => {
+      console.log(response.body[0])
+      for (let i = 0; i < response.body.length; i += 1) {
+        response.body[i].picture = 'http://localhost:8001/' + response.body[i].picture.slice(response.body[i].picture.indexOf('Images/') + 7)
+      }
+      this.blogs = [...response.body]
+      console.log(this.blogs)
       this.loading = false
       if (this.$store.state.page > 0) {
         this.$store.commit('modifypage', 1)
       } else {
         this.$store.commit('modifypage', this.$store.state.page + 1)
       }
-      this.cutdate(this.blogs)
+      // this.cutdate(this.blogs)
       this.blogs.forEach((blog) => {
-        if (blog.img !== '') {
+        if (blog.picture !== '') {
           blog.mainwidth = '66.7%' // eslint-disable-line no-param-reassign
           blog.imgwidth = '33.3%' // eslint-disable-line no-param-reassign
         } else {
@@ -321,7 +323,7 @@ export default {
   methods: {
     move (item) {
       this.$store.commit('modifyblog', item)
-      this.$router.push({ path: '/blog/' + item.Id }) // eslint-disable-line prefer-template
+      this.$router.push({ path: '/blog/' + item.id }) // eslint-disable-line prefer-template
     },
     to (link) {
       window.location.href = link

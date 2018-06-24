@@ -31,7 +31,7 @@
     <div class="markdown">
       <mavon-editor
         class="editor"
-        v-model="blog.Content"
+        v-model="blog.content"
         :ishljs = "true"
         :toolbars = "{}"
         :subfield = false
@@ -99,12 +99,11 @@ export default {
   },
   created () {
     const blogid = {
-      id: this.$store.state.item.Id
+      id: this.$store.state.item.id
     }
-    this.$http.post('http://192.168.0.111:21001/blog/article/getbyid', blogid).then((response) => {
-      this.blog = response.body.data
+    this.$http.post('http://127.0.0.1:7001/blogs/:id', blogid).then((response) => {
+      this.blog = response.body
       this.show = false
-      this.blog.Created = this.blog.Created.slice(0, 10)
     }, () => {
       this.$Notice.error({
         title: '内容获取失败'

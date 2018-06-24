@@ -39,7 +39,7 @@
             :key="index"
             @click="push(tag)"
             :style="{ backgroundColor: tag.color }">
-        {{tag.Tag}}
+        {{tag.name}}
       </span>
     </div>
     <div v-for="(item, index) in show" :key="index" class="result">
@@ -51,9 +51,9 @@
            v-for="(detail, index) in item.detail"
            :key="index"
            @click="move(detail)">
-        <span class="result-detail-title">{{detail.Title}}</span>
+        <span class="result-detail-title">{{detail.title}}</span>
         <span class="result-detail-other">
-          visitors: {{detail.visitor}} <strong>·</strong> {{detail.Created}}
+          {{detail.porfile}}
         </span>
       </div>
     </div>
@@ -156,8 +156,8 @@ export default {
     loading
   },
   mounted () {
-    this.$http.get('http://192.168.0.111:21001/blog/tag/activelist').then((response) => {
-      this.tags = response.body.ID
+    this.$http.get('http://127.0.0.1:7001/tags').then((response) => {
+      this.tags = [...response.body]
       this.loading = false
       for (let n = 0; n < this.tags.length; n += 1) {
         if (this.tags[n].Count < 10) {
@@ -177,27 +177,28 @@ export default {
   methods: {
     push (item) {
       const id = {
-        id: item.TagID
+        name: item.name
       }
       const article = {}
-      this.$http.post('http://192.168.0.111:21001/blog/article/getbytag', id).then((response) => {
+      this.$http.post('http://127.0.0.1:7001/search-blog', id).then((response) => {
+        console.log(response)
         if (this.show.length === 0) {
-          article.tag = item.Tag
-          article.detail = response.body.data
+          article.tag = item.name
+          article.detail = [...response.body]
           this.show.unshift(article)
         } else {
           for (let i = 0; i <= this.show.length; i += 1) {
             if (i < this.show.length) {
-              if (this.show[i].tag === item.tag) {
+              if (this.show[i].tag === item.name) {
                 this.show.splice(i, 1)
-                article.tag = item.Tag
-                article.detail = response.body.data
+                article.tag = item.name
+                article.detail = [...response.body]
                 this.show.unshift(article)
                 break
               }
             } else {
-              article.tag = item.Tag
-              article.detail = response.body.data
+              article.tag = item.name
+              article.detail = [...response.body]
               this.show.unshift(article)
               break
             }
@@ -207,7 +208,7 @@ export default {
     },
     move (item) {
       this.$store.commit('modifyblog', item)
-      this.$router.push('/blog/' + item.Id) // eslint-disable-line prefer-template
+      this.$router.push('/blog/' + item.id) // eslint-disable-line prefer-template
     }
   }
 }
