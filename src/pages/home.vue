@@ -69,19 +69,29 @@
               </div>
               </el-col>
             <el-col :span="8">
-              <div @mouseover="active('qqactive', 0)" @mouseout="active('qqactive', 1)">
-                <img :src="this.qq" class="icon-img" id="qq">
-              </div>
+              <el-popover
+                placement="bottom"
+                trigger="click">
+                <img :src="this.qqscan" class="scan-img">
+                <div slot="reference" @click="show('qq')" @mouseover="active('qqactive', 0)" @mouseout="active('qqactive', 1)">
+                  <img :src="this.qq" class="icon-img" id="qq">
+                </div>
+              </el-popover>
             </el-col>
             <el-col :span="8">
-              <div @mouseover="active('wechatactive', 0)" @mouseout="active('wechatactive', 1)">
-                <img :src="this.wechat" class="icon-img" id="wechat">
-              </div>
+              <el-popover
+                placement="bottom"
+                trigger="click">
+                <img :src="this.wechatscan" class="scan-img">
+                <div slot="reference" @click="show('wechat')" @mouseover="active('wechatactive', 0)" @mouseout="active('wechatactive', 1)">
+                  <img :src="this.wechat" class="icon-img" id="wechat">
+                </div>
+              </el-popover>
             </el-col>
           </el-row>
         </div>
         <div class="hot-tags">
-          <p class="title"><strong>Tags</strong></p>
+          <p class="title"><strong>Hot Tags</strong></p>
           <div class="tags">
             <span class="tags-container">Weex</span>
             <span class="tags-container">JavaScript</span>
@@ -278,6 +288,10 @@
 .span {
   margin-right: 10px;
 }
+
+.scan-img {
+  width: 200px;
+}
 </style>
 <script>
 import loading from '../components/loading'
@@ -289,7 +303,9 @@ export default {
       loading: true,
       getmore: false,
       qq: require('../assets/QQ.png'),
-      wechat: require('../assets/wechat.png')
+      wechat: require('../assets/wechat.png'),
+      wechatscan: require('../assets/wechatscan.jpg'),
+      qqscan: require('../assets/qqscan.jpg')
     }
   },
   components: {
