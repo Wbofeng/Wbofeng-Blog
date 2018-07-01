@@ -38,8 +38,9 @@
               <el-col :span="16" :style="{ width: blog.mainwidth }">
                 <p class="blog-title">{{blog.title}}</p>
                 <p class="blog-detail">
-                  <span>浏览次数: {{blog.count}}</span>
-                  <span>标签: {{blog.tags}}</span>
+                  <span class="span">浏览次数: {{blog.count}}</span>
+                  <span class="span">标签: {{blog.tags}}</span>
+                  <span class="span">创建时间: {{blog.created}}</span>
                 </p>
                 <span class="blog-container">{{blog.profile}}</span>
               </el-col>
@@ -273,6 +274,10 @@
   width: 48%;
   transition-duration: 0.5s;
 }
+
+.span {
+  margin-right: 10px;
+}
 </style>
 <script>
 import loading from '../components/loading'
@@ -292,7 +297,6 @@ export default {
   },
   mounted () {
     this.$http.get('http://127.0.0.1:7001/home').then((response) => {
-      console.log(response.body[0])
       for (let i = 0; i < response.body.length; i += 1) {
         response.body[i].picture = 'http://localhost:8001/' + response.body[i].picture.slice(response.body[i].picture.indexOf('Images/') + 7)
       }
