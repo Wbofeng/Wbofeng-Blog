@@ -175,6 +175,14 @@ export default {
           Created: '2018-5-20',
           img: require('../assets/s8e.png'),
           Link: 'https://techcats.s8e.io/#/login'
+        },
+        {
+          Title: '印象中国',
+          Detail: '基于 Hugo 上的二次开发',
+          Author: 'ShiChao Wbofeng',
+          Created: '2018-7-02',
+          img: require('../assets/inxchina.png'),
+          Link: 'http://inxchina.com/'
         }
       ],
       loading: true
