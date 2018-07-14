@@ -35,21 +35,28 @@
             <img class="logo" src="../assets/logo.png" @click="gohome()">
           </router-link>
         </el-col>
-        <el-col :span="2" :push="14">
+        <el-col :span="2" :push="12">
           <router-link to="/home" style="color:black;">
             <div class="navmenu-div">
               <span class="navmenu-container"><strong>HOME</strong></span>
             </div>
           </router-link>
         </el-col>
-        <el-col :span="2" :push="14">
-          <router-link to="/works" style="color:black;">
+        <el-col :span="2" :push="12">
+          <router-link to="/blogs" style="color:black;">
             <div class="navmenu-div">
-              <span class="navmenu-container"><strong>MY WORKS</strong></span>
+              <span class="navmenu-container"><strong>BLOGS</strong></span>
             </div>
           </router-link>
         </el-col>
-        <el-col :span="2" :push="14">
+        <el-col :span="2" :push="12">
+          <router-link to="/works" style="color:black;">
+            <div class="navmenu-div">
+              <span class="navmenu-container"><strong>WORKS</strong></span>
+            </div>
+          </router-link>
+        </el-col>
+        <el-col :span="2" :push="12">
           <router-link to="/tags" style="color:black;">
             <div class="navmenu-div">
               <span class="navmenu-container"><strong>TAGS</strong></span>

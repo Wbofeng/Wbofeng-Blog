@@ -35,6 +35,7 @@ import Works from '@/pages/works'
 import Tags from '@/pages/tags'
 import Blog from '@/pages/blog'
 import Indexpage from '@/pages/index'
+import Blogs from '@/pages/blogs'
 
 Vue.use(Router)
 
@@ -72,6 +73,11 @@ export default new Router({
           path: '/blog/:id',
           name: 'blog',
           component: Blog
+        },
+        {
+          path: '/blogs',
+          name: 'blogs',
+          component: Blogs
         }
       ]
     }
