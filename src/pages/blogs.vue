@@ -4,6 +4,9 @@
     </div>
     <!-- <loading v-if="this.loading"></loading> -->
     <div class="body">
+      <el-input class="input" v-model="input" placeholder="请输入你想要查找的关键字">
+        <el-button slot="append" @click="search()" icon="el-icon-search"></el-button>
+      </el-input>
       <el-card shadow="hover" class="blog-card" v-for="(blog, index) in blogs" :key="index">
         <div @click="move(blog)">
           <img :src="blog.picture" class="image">
@@ -57,12 +60,17 @@
   width: 100%;
   height: 15vw;
 }
+
+.input {
+  margin-top: 30px;
+}
 </style>
 <script>
 export default {
   data () {
     return {
-      blogs: []
+      blogs: [],
+      input: ''
     }
   },
   mounted () {
@@ -97,6 +105,24 @@ export default {
     move (item) {
       this.$store.commit('modifyblog', item)
       this.$router.push({ path: '/blog/' + item.id }) // eslint-disable-line prefer-template
+    },
+    search () {
+      const blog = {
+        title: this.input
+      }
+      this.$http.post('http://127.0.0.1:7001/searchbydetail', blog).then((response) => {
+        console.log(response)
+        if (response) {
+          for (let i = 0; i < response.body.length; i += 1) {
+            response.body[i].picture = 'http://localhost:8001/' + response.body[i].picture.slice(response.body[i].picture.indexOf('Images/') + 7)
+          }
+          this.blogs = [...response.body]
+        } else {
+          this.$Notice.error({
+            title: '查找失败'
+          })
+        }
+      })
     }
   }
 }
