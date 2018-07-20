@@ -64,6 +64,7 @@
 .input {
   margin-top: 30px;
 }
+
 </style>
 <script>
 export default {
