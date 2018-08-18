@@ -29,13 +29,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Main from '@/components/main'
-import Home from '@/pages/home'
-import Works from '@/pages/works'
-import Tags from '@/pages/tags'
-import Blog from '@/pages/blog'
-import Indexpage from '@/pages/index'
-import Blogs from '@/pages/blogs'
+const Main = () => import('@/components/main')
+const Home = () => import('@/pages/home')
+const Works = () => import('@/pages/works')
+const Tags = () => import('@/pages/Tags')
+const Blog = () => import('@/pages/Blog')
+const Indexpage = () => import('@/pages/index')
+const Blogs = () => import('@/pages/Blogs')
 
 Vue.use(Router)
 

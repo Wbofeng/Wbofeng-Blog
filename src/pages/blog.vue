@@ -45,70 +45,36 @@
   padding: 0px;
   text-align: center;
   width: 100%;
+  margin-top: 100px;
 }
 
 .markdown {
-  width: 60%;
+  width: 80%;
   margin: auto;
-  margin-top: 8vw;
-}
-
-.title {
-  font-size: 32px;
-  margin-bottom: 1vw;
-  user-select: none;
-}
-
-.author {
-  margin-left: 3vw;
-  margin-right: 3vw;
-  color: #999;
-  font-size: 16px;
-  user-select: none;
-}
-
-.time {
-  margin-left: 3vw;
-  margin-right: 3vw;
-  color: #999;
-  font-size: 16px;
-  user-select: none;
-}
-
-.header {
-  padding-bottom: 2vw;
-  border-bottom: 1px solid #eee;
 }
 
 .editor {
   margin-bottom: 20px;
+  background-color: white;
+  border: none;
+  z-index: 0;
 }
 </style>
 <script>
-import loading from '../components/loading'
+import { getBlog } from '@/services/main.js'
 
 export default {
-  components: {
-    loading
-  },
   data () {
     return {
-      blog: {},
-      show: true
+      blogId: '',
+      show: true,
+      blog: {}
     }
   },
-  created () {
-    const blogid = {
-      id: this.$store.state.item.id
-    }
-    this.$http.post('http://127.0.0.1:7001/blogs/:id', blogid).then((response) => {
-      this.blog = response.body
-      this.show = false
-    }, () => {
-      this.$Notice.error({
-        title: '内容获取失败'
-      })
-    })
+  async mounted () {
+    this.blogId = this.$store.state.item
+    const resp = await getBlog(this.blogId)
+    this.blog = resp.data
   }
 }
 </script>

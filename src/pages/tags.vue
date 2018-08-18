@@ -32,8 +32,7 @@
       <span class="title"><strong>Tags</strong></span><br/><br/>
       <span class="detail">在这里你可以根据标签，快速检索文章</span>
     </div>
-    <div class="tags-container" id="container">
-      <loading v-if="this.loading"></loading>
+    <div v-loading="loading" class="tags-container" id="container">
       <span class="tag"
             v-for="(tag, index) in tags"
             :key="index"
@@ -42,18 +41,17 @@
         {{tag.name}}
       </span>
     </div>
-    <div v-for="(item, index) in show" :key="index" class="result">
+    <div class="result" v-loading="resultLoading">
       <span class="result-name">
-        <Icon type="pricetag"></Icon>
-        {{item.tag}}
+        {{selectedTag}}
       </span>
       <div class="result-detail"
-           v-for="(detail, index) in item.detail"
+           v-for="(item, index) in show"
            :key="index"
-           @click="move(detail)">
-        <span class="result-detail-title">{{detail.title}}</span>
+           @click="move(item)">
+        <span class="result-detail-title">{{item.title}}</span>
         <span class="result-detail-other">
-          {{detail.porfile}}
+          {{item.porfile}}
         </span>
       </div>
     </div>
@@ -141,7 +139,7 @@
 }
 </style>
 <script>
-import loading from '../components/loading'
+import { getTags, scarchBlogs } from '@/services/main.js'
 
 export default {
   data () {
@@ -149,66 +147,42 @@ export default {
       id: 'title',
       tags: [],
       show: [],
-      loading: true
+      selectedTag: '',
+      loading: true,
+      resultLoading: false
     }
   },
-  components: {
-    loading
-  },
-  mounted () {
-    this.$http.get('http://127.0.0.1:7001/tags').then((response) => {
-      this.tags = [...response.body]
+  async mounted () {
+    try {
+      const resp = await getTags()
+      this.tags = [...resp.data]
       this.loading = false
-      for (let n = 0; n < this.tags.length; n += 1) {
-        if (this.tags[n].Count < 10) {
-          this.tags[n].color = '#81a3cd'
-        } else if (this.tags[n].Count >= 10 && this.tags[n].Count < 30) {
-          this.tags[n].color = '#b7adcf'
-        } else if (this.tags[n].Count >= 30) {
-          this.tags[n].color = '#b5738d'
-        }
-      }
-    }, () => {
-      this.$Notice.error({
-        title: 'TAGS 内容获取失败'
-      })
-    })
+      // for (let n = 0; n < this.tags.length; n += 1) {
+      //   if (this.tags[n].Count < 10) {
+      //     this.tags[n].color = '#81a3cd'
+      //   } else if (this.tags[n].Count >= 10 && this.tags[n].Count < 30) {
+      //     this.tags[n].color = '#b7adcf'
+      //   } else if (this.tags[n].Count >= 30) {
+      //     this.tags[n].color = '#b5738d'
+      //   }
+      // }
+    } catch (err) {
+      return false
+    }
   },
   methods: {
-    push (item) {
-      const id = {
-        name: item.name
+    async push (item) {
+      this.resultLoading = true
+      const resp = await scarchBlogs({ name: item.name })
+      this.selectedTag = item.name
+      if (resp.data.length !== 0) {
+        this.show = [...resp.data]
+        this.resultLoading = false
       }
-      const article = {}
-      this.$http.post('http://127.0.0.1:7001/search-blog', id).then((response) => {
-        console.log(response)
-        if (this.show.length === 0) {
-          article.tag = item.name
-          article.detail = [...response.body]
-          this.show.unshift(article)
-        } else {
-          for (let i = 0; i <= this.show.length; i += 1) {
-            if (i < this.show.length) {
-              if (this.show[i].tag === item.name) {
-                this.show.splice(i, 1)
-                article.tag = item.name
-                article.detail = [...response.body]
-                this.show.unshift(article)
-                break
-              }
-            } else {
-              article.tag = item.name
-              article.detail = [...response.body]
-              this.show.unshift(article)
-              break
-            }
-          }
-        }
-      })
     },
     move (item) {
       this.$store.commit('modifyblog', item)
-      this.$router.push('/blog/' + item.id) // eslint-disable-line prefer-template
+      this.$router.push(`'/blog/${item.id}`) // eslint-disable-line prefer-template
     }
   }
 }

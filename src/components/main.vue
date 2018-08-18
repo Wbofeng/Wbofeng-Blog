@@ -1,79 +1,66 @@
-/*
- * MIT License
- *
- * Copyright (c) 2017 SmartestEE Co., Ltd..
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the 'Software'), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
-/*
- * Revision History:
- *     Initial: 2018/3/10     Wbofeng
- */
 <template>
-  <el-container>
+  <el-container class="container">
     <el-header class="header" id="header">
-      <el-row style="z-index: 10">
-        <el-col :span="4" :push="1">
+      <el-row>
+        <el-col :span="4" :push="0">
           <router-link to="/home" style="color:black;">
-            <img class="logo" src="../assets/logo.png" @click="gohome()">
+            <img class="logo" src="../assets/logo.png">
           </router-link>
         </el-col>
-        <el-col :span="2" :push="12">
-          <router-link to="/home" style="color:black;">
+        <el-col :span="2" :push="14">
+          <router-link to="/home">
             <div class="navmenu-div">
-              <span class="navmenu-container"><strong>HOME</strong></span>
+              <span class="navmenu-container">
+                <strong>HOME</strong>
+              </span>
             </div>
           </router-link>
         </el-col>
-        <el-col :span="2" :push="12">
-          <router-link to="/blogs" style="color:black;">
+        <!-- <el-col :span="2" :push="12">
+          <router-link to="/blogs">
             <div class="navmenu-div">
-              <span class="navmenu-container"><strong>BLOGS</strong></span>
+              <span class="navmenu-container">
+                <strong>BLOGS</strong>
+              </span>
+            </div>
+          </router-link>
+        </el-col> -->
+        <el-col :span="2" :push="14">
+          <router-link to="/works">
+            <div class="navmenu-div">
+              <span class="navmenu-container">
+                <strong>WORKS</strong>
+              </span>
             </div>
           </router-link>
         </el-col>
-        <el-col :span="2" :push="12">
-          <router-link to="/works" style="color:black;">
+        <el-col :span="2" :push="14">
+          <router-link to="/tags">
             <div class="navmenu-div">
-              <span class="navmenu-container"><strong>WORKS</strong></span>
-            </div>
-          </router-link>
-        </el-col>
-        <el-col :span="2" :push="12">
-          <router-link to="/tags" style="color:black;">
-            <div class="navmenu-div">
-              <span class="navmenu-container"><strong>TAGS</strong></span>
+              <span class="navmenu-container">
+                <strong>TAGS</strong>
+              </span>
             </div>
           </router-link>
         </el-col>
       </el-row>
     </el-header>
     <el-main class="main">
-      <router-view></router-view>
+      <transition name="fade" mode="out-in">
+        <router-view></router-view>
+      </transition>
     </el-main>
   </el-container>
 </template>
 <style scoped>
+.container {
+  max-width: 1920px;
+  min-width: 1440px;
+}
+
 .header {
   position: fixed;
-  height: 7vh !important;
+  height: 55px !important;
   width: 100%;
   border-bottom: 1px solid #e7e7e7;
   z-index: 10;
@@ -83,19 +70,22 @@
 }
 
 .main {
-  position: relative;
-  z-index: 0;
   padding: 0px;
+  padding-bottom: 20px;
 }
 
 .navmenu-div {
-  height: 7vh;
+  height: 55px;
 }
 
 .navmenu-container {
-  font-size: 1.0vw;
-  line-height: 7vh;
+  font-size: 16px;
+  line-height: 55px;
   transition-duration: 0.5s;
+  color: black;
+}
+
+a {
   text-decoration: none;
 }
 
@@ -112,7 +102,15 @@
 }
 
 .logo {
-  width: 80%;
+  width: 200px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+  transform: translateX(100px) .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
 <script>

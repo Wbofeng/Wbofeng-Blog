@@ -28,36 +28,24 @@
  */
 <template>
   <div class="main">
-    <div class="banner">
-    </div>
-    <!-- <loading v-if="this.loading"></loading> -->
-    <transition-group
-      name="staggered-fade"
-      v-on:before-enter="beforeEnter"
-      v-on:enter="enter"
-    >
-      <div class="work" v-for="(work, index) in works" :key="index" :data-index="index">
-        <div class="work-img-div">
-          <img class="work-img" :src="work.img">
+    <img class="banner" src="../assets/banner.png">
+    <div class="work" v-for="(work, index) in works" :key="index" :data-index="index">
+      <img class="work-img" :src="work.img">
+      <div class="work-container">
+        <div class="text-div">
+          <p class="work-title"><strong>{{work.Title}}</strong></p>
+          <span class="work-detail">{{work.Detail}}</span>
         </div>
-        <div class="work-container">
-          <div class="text-div">
-            <p class="work-title"><strong>{{work.Title}}</strong></p>
-            <span class="work-detail">{{work.Detail}}</span>
-          </div>
-          <el-row class="bottom">
-            <el-col :span="14" class="bottom-detail">
-              {{work.Author}}<strong> · </strong>{{work.Created}}
-            </el-col>
-            <el-col :span="4" :push="6">
-              <div class="button" @click="move(work.Link)">
-                <span>Open it</span>
-              </div>
-            </el-col>
-          </el-row>
-        </div>
+        <el-row class="bottom">
+          <el-col :span="14" class="bottom-detail">
+            {{work.Author}}<strong> · </strong>{{work.Created}}
+          </el-col>
+          <el-col :span="4" :push="6">
+            <el-button class="button" @click="move(work.Link)">Open it</el-button>
+          </el-col>
+        </el-row>
       </div>
-    </transition-group>
+    </div>
   </div>
 </template>
 <style scoped>
@@ -65,54 +53,40 @@
   width: 100%;
   padding: 0px;
   text-align: center;
-  padding-bottom: 3vh;
 }
 
 .banner {
   width: 100%;
-  height: 20.83vw;
-  background-image: url('../assets/banner.png');
-  background-size: 100% 100%;
 }
 
 .work {
   position: relative;
   margin: auto;
-  top: -8vw;
-  margin-top: 5vw;
-  width: 40vw;
+  width: 650px;
+  top: -60px;
+  padding-top: 20px;
+  margin-bottom: 40px;
   background-color: white;
-  padding-top: 2vw;
   box-shadow: 0 2px 12px 0 rgba(0,0,0,.2);
 }
 
-.work-img-div {
-  width: 100%;
-  height: 20vw;
-  background-color: #f5f5f5;
-}
-
 .work-img {
-  height: 100%;
   width: 100%;
-  max-width:100%;
-  max-height:100%;
 }
 
 .work-container {
-  width: 100%;
-  padding: 1.5vw;
+  padding: 20px;
   text-align: left;
 }
 
 .work-title {
   font-size: 20px;
   user-select: none;
-  margin-bottom: 1vh;
+  margin-bottom: 10px;
 }
 
 .text-div {
-  padding-bottom: 2vw;
+  padding-bottom: 20px;
   border-bottom: 1px solid #eee;
   transition-duration: 0.4s;
 }
@@ -131,31 +105,15 @@
 
 .button {
   position: absolute;
-  right: 0px;
-  width: 4vw;
-  height: 2vw;
+  top: -6px;
+  left: 19px;
   background-color: #0086a5;
-  padding-top: 0.3vw;
   text-align: center;
-  color: white;
-  font-size: 12px;
-  display: table;
-}
-
-.button span {
-  display: table-cell;
-  vertical-align: middle;
-  user-select: none;
-}
-
-.button-container {
   color: white;
   font-size: 12px;
 }
 </style>
 <script>
-import loading from '../components/loading'
-
 export default {
   data () {
     return {
@@ -163,7 +121,7 @@ export default {
         {
           Title: '极智人官网',
           Detail: '使用 Vue 和 element-UI 制作的页面',
-          Author: 'Wbofeng',
+          Author: 'WBofeng',
           Created: '2017-11-05',
           img: require('../assets/smartestee.png'),
           Link: 'https://bootcamp.smartestee.com/#/'
@@ -171,15 +129,15 @@ export default {
         {
           Title: '极智人管理后台',
           Detail: '基于 Element-admin，实现了人员添加，技术新闻搜索，权限授权，密码修改等功能',
-          Author: 'Wbofeng',
+          Author: 'WBofeng',
           Created: '2018-5-20',
-          img: require('../assets/s8e.png'),
+          img: require('../assets/s8e.jpeg'),
           Link: 'https://techcats.s8e.io/#/login'
         },
         {
           Title: '印象中国',
           Detail: '基于 Hugo 上的二次开发',
-          Author: 'ShiChao Wbofeng',
+          Author: 'ShiChao WBofeng',
           Created: '2018-7-02',
           img: require('../assets/inxchina.png'),
           Link: 'http://inxchina.com/'
@@ -187,9 +145,6 @@ export default {
       ],
       loading: true
     }
-  },
-  components: {
-    loading
   },
   mounted () {
     /* this.$http({
@@ -211,15 +166,6 @@ export default {
   methods: {
     move (link) {
       window.location.href = link
-    },
-    beforeEnter (el) {
-      el.style.opacity = 0 // eslint-disable-line no-param-reassign
-    },
-    enter (el) {
-      const delay = el.dataset.index * 150
-      setTimeout(() => {
-        el.style.opacity = 1 // eslint-disable-line no-param-reassign
-      }, delay)
     }
   }
 }

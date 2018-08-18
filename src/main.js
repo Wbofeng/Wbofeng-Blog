@@ -30,28 +30,18 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import iView from 'iview'
-import 'iview/dist/styles/iview.css'
-import VueResource from 'vue-resource'
-import createPersistedState from 'vuex-persistedstate'
-import VueLazyload from 'vue-lazyload'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import vueCanvas from 'vue-canvas-effect'
+import createPersistedState from 'vuex-persistedstate'
 
 import App from './App'
 import router from './router'
 
 Vue.use(ElementUI)
-Vue.use(iView)
-Vue.use(Vuex)
-Vue.use(VueResource)
 Vue.use(mavonEditor)
 Vue.use(vueCanvas)
-Vue.use(VueLazyload, {
-  attempt: 1
-})
-Vue.config.productionTip = false
+Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
@@ -62,13 +52,11 @@ const store = new Vuex.Store({
   mutations: {
     modifyblog: (state, blog) => {
       state.item = blog
-    },
-    modifypage: (state, page) => {
-      state.page = page
     }
   }
 })
 
+Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
