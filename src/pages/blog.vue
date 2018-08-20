@@ -68,13 +68,19 @@ export default {
     return {
       blogId: '',
       show: true,
-      blog: {}
+      blog: {
+        content: '正在玩儿命加载中'
+      }
     }
   },
   async mounted () {
     this.blogId = this.$store.state.item
     const resp = await getBlog(this.blogId)
-    this.blog = resp.data
+    if (resp) {
+      this.blog = resp.data
+    } else {
+      this.blog.content = '加载失败了。。。'
+    }
   }
 }
 </script>

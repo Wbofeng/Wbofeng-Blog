@@ -4,7 +4,7 @@
       <div @click="move(item)">
         <el-col :span="16">
           <p class="blog-title">{{item.title}}</p>
-          <p class="blog-infor">create: {{item.created}} | views: {{item.count}} | tags: {{item.tags}}</p>
+          <p class="blog-infor">create: {{item.created}} | views: {{item.count}} | tag: {{item.tags}}</p>
           <p class="blog-profile">{{item.profile}}</p>
         </el-col>
         <el-col :span="8">
@@ -38,8 +38,11 @@
 }
 
 .img {
-  width: 80%;
+  width: 70%;
+  margin-top: 20px;
   margin-left: 20%;
+  height: 160px;
+  border-radius: 10px;
 }
 </style>
 
@@ -56,7 +59,7 @@ export default {
   async mounted () {
     if (this.blogs.length === 0) {
       const resp = await getBlogs()
-      this.blogs = [...resp.data]
+      this.blogs = [...resp.data.reverse()]
       for (let i = 0; i < this.blogs.length; i += 1) {
         this.blogs[i].picture = `http://www.wbofeng.top/images/${this.blogs[i].picture.slice(32)}`
       }

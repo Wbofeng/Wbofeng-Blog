@@ -87,23 +87,26 @@
 .tags-container {
   width: 60%;
   margin: auto;
-  margin-top: 3vw;
+  margin-top: 30px;
   text-align: left;
-  padding-bottom: 4vw;
+  padding-bottom: 40px;
 }
 
 .tag {
-  padding: 0.5vw;
-  padding-top: 0.25vw;
-  padding-bottom: 0.25vw;
+  padding: 5px 10px;
   color: white;
   background-color: #34b1b7;
   text-align: center;
   border-radius: 5px;
-  margin-left: 0.25vw;
-  margin-right: 0.25vw;
+  margin-left: 10px;
+  margin-right: 10px;
   font-size: 14px;
   user-select: none;
+  transition-duration: 0.5s;
+}
+
+.tag:hover {
+  font-size: 18px;
 }
 
 .result {
@@ -182,7 +185,7 @@ export default {
     },
     move (item) {
       this.$store.commit('modifyblog', item)
-      this.$router.push(`'/blog/${item.id}`) // eslint-disable-line prefer-template
+      this.$router.push(`/blog/${item.id}`) // eslint-disable-line prefer-template
     }
   }
 }

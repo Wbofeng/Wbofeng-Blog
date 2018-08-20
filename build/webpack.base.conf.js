@@ -38,6 +38,11 @@ module.exports = {
       '@': resolve('src'),
     }
   },
+  // externals:{
+  //   'vuex': 'Vuex',
+  //   'vue': 'Vue',
+  //   'vue-router': 'VueRouter'
+  // },
   module: {
     rules: [
       ...(config.dev.useEslint ? [createLintingRule()] : []),

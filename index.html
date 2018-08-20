@@ -4,9 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Wbofeng-blog</title>
+    <script>
+      document.addEventListener('visibilitychange',function () {
+        if (document.visibilityState == 'hidden') {
+          normal_title = document.title
+          document.title ='记得回来哦～'
+        } else {
+          document.title = '你回来啦～'
+          setTimeout(function() {
+            document.title = normal_title
+          }, 500)
+        }
+      })</script>
   </head>
   <body style="padding: 0px; margin: 0px;">
     <div id="app"></div>
-    <!-- built files will be auto injected -->
   </body>
 </html>
