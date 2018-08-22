@@ -1,6 +1,6 @@
 <template>
   <div v-loading="loading">
-    <el-row v-for="item in blogs" :key="item.id" class="blog-container">
+    <el-row v-for="item in show" :key="item.id" class="blog-container">
       <div @click="move(item)">
         <el-col :span="16">
           <p class="blog-title">{{item.title}}</p>
@@ -12,6 +12,13 @@
         </el-col>
       </div>
     </el-row>
+    <el-pagination
+      class="pagination"
+      @current-change="handleCurrentChange"
+      :page-size="6"
+      layout="prev, pager, next, jumper"
+      :total="length">
+    </el-pagination>
   </div>
 </template>
 
@@ -30,11 +37,22 @@
 
 .blog-title {
   font-size: 20px;
+  color: #666;
+  transition-duration: 0.6s;
+}
+
+.blog-container:hover .blog-title {
+  color: black;
 }
 
 .blog-infor {
   font-size: 14px;
   margin-bottom: 30px;
+  color: #666;
+}
+
+.blog-profile {
+  color: #666;
 }
 
 .img {
@@ -43,6 +61,10 @@
   margin-left: 20%;
   height: 160px;
   border-radius: 10px;
+}
+
+.pagination {
+  margin-top: 10px;
 }
 </style>
 
@@ -53,7 +75,9 @@ export default {
   data () {
     return {
       blogs: [],
-      loading: true
+      loading: true,
+      length: 0,
+      show: []
     }
   },
   async mounted () {
@@ -63,6 +87,8 @@ export default {
       for (let i = 0; i < this.blogs.length; i += 1) {
         this.blogs[i].picture = `http://www.wbofeng.top/images/${this.blogs[i].picture.slice(32)}`
       }
+      this.length = this.blogs.length
+      this.show = this.blogs.slice(0, 6)
       if (this.blogs.length !== 0) {
         this.loading = false
       }
@@ -74,6 +100,9 @@ export default {
     move (item) {
       this.$store.commit('modifyblog', item)
       this.$router.push({ path: `/blog/${item.id}` })
+    },
+    handleCurrentChange (val) {
+      this.show = this.blogs.slice((val - 1) * 6, val * 6)
     }
   }
 }
